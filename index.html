@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>College Memories</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      min-height: 100vh;
+      background: #f5f5f5;
+      color: #333;
+      padding: 20px 0;
+    }
+
+    .posts-container {
+      width: 100%;
+      max-width: 420px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .memory-card {
+      width: 100%;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      position: relative;
+      opacity: 100%;
+      transform: translateY(30px);
+      animation: fadeInUp 0.6s forwards;
+      margin-bottom: 50px;
+    }
+
+    .memory-card.highlighted {
+      animation: highlightPost 2s ease;
+      box-shadow: 0 0 0 3px #4a6fa5;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes highlightPost {
+      0% { box-shadow: 0 0 0 0 rgba(74, 111, 165, 0.7); }
+      50% { box-shadow: 0 0 0 10px rgba(74, 111, 165, 0); }
+      100% { box-shadow: 0 0 0 3px #4a6fa5; }
+    }
+
+    .card-header {
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #eee;
+    }
+
+    .menu-btn {
+      background: none;
+      border: none;
+      font-size: 20px;
+      margin-right: 15px;
+      cursor: pointer;
+      color: #555;
+      transition: all 0.3s;
+    }
+
+    .menu-btn:hover {
+      color: #333;
+      transform: scale(1.1);
+    }
+
+    .profile-pic {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 12px;
+      border: 2px solid #4a6fa5;
+    }
+
+    .user-info {
+      flex-grow: 1;
+    }
+
+    .username {
+      font-weight: 600;
+      font-size: 15px;
+      color: #333;
+    }
+
+    .college-name {
+      font-size: 12px;
+      color: #777;
+    }
+
+    .memory-media {
+      width: 100%;
+      height: 380px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .media-item {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 100%;
+      transition: opacity 0.5s ease;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .media-item.active {
+      opacity: 1;
+    }
+
+    .media-controls {
+      position: absolute;
+      bottom: 15px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .media-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .media-dot.active {
+      background: white;
+      width: 20px;
+      border-radius: 4px;
+    }
+
+    .card-footer {
+      padding: 16px 20px;
+    }
+
+    .memory-description {
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 15px;
+      color: #444;
+    }
+
+    .memory-date {
+      font-size: 12px;
+      color: #999;
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .memory-date i {
+      margin-right: 6px;
+    }
+
+    .action-buttons {
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid #eee;
+      padding-top: 12px;
+    }
+
+    .action-btn {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: #555;
+      transition: all 0.3s;
+      padding: 5px 10px;
+      border-radius: 6px;
+    }
+
+    .action-btn:hover {
+      background: #f5f5f5;
+      color: #333;
+    }
+
+    .like-btn .fa-heart {
+      transition: transform 0.2s ease, color 0.2s ease;
+      font-size: 22px;
+    }
+
+    .like-btn.liked .fa-heart {
+      color: red;
+      transform: scale(1.2);
+    }
+
+    .share-btn {
+      color: #4a6fa5;
+      position: relative;
+    }
+
+    .share-btn::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: #4a6fa5;
+      transition: all 0.3s;
+    }
+
+    .share-btn:hover::after {
+      width: 100%;
+      left: 0;
+    }
+
+    .share-btn.clicked {
+      animation: sharePulse 0.5s;
+    }
+
+    @keyframes sharePulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 4px;
+      font-size: 14px;
+      z-index: 1000;
+      opacity: 0;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(5px);
+      z-index: 100;
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .menu-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .menu-content {
+      background: white;
+      width: 90%;
+      max-width: 280px;
+      height: 500px;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transform: translateX(-20px);
+      transition: transform 0.3s ease;
+    }
+
+    .menu-overlay.active .menu-content {
+      transform: translateX(0);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: #777;
+      transition: transform 0.3s;
+    }
+
+    .close-btn:hover {
+      transform: rotate(90deg);
+    }
+
+    .menu-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .menu-title {
+      font-weight: 600;
+      font-size: 18px;
+      margin-left: 10px;
+    }
+
+    .instagram-links {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .instagram-links li {
+      margin-bottom: 15px;
+    }
+
+    .instagram-links a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: #333;
+      transition: all 0.3s;
+      padding: 8px;
+      border-radius: 6px;
+    }
+
+    .instagram-links a:hover {
+      background: #f5f5f5;
+      transform: translateX(5px);
+    }
+
+    .instagram-links i {
+      font-size: 18px;
+      margin-right: 10px;
+      color: #e1306c;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 20px;
+      color: #666;
+    }
+
+    .error-message {
+      text-align: center;
+      padding: 20px;
+      color: #d9534f;
+      font-weight: 500;
+    }
+
+    .show-all-btn {
+      margin: 20px auto;
+      padding: 10px 20px;
+      background-color: #4a6fa5;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      display: block;
+      transition: all 0.3s;
+    }
+
+    .show-all-btn:hover {
+      background-color: #3a5a8a;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+  <div class="posts-container" id="postsContainer">
+    <div class="loading">Loading memories...</div>
+  </div>
+
+  <div class="toast" id="toast"><i class="fas fa-check-circle"> </i><span>  Link copied!</span></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const postsContainer = document.getElementById('postsContainer');
+      const toast = document.getElementById('toast');
+      let allPostsData = [];
+
+      // Function to get post ID from URL hash
+      function getPostIdFromURL() {
+        const hash = window.location.hash;
+        if (hash.startsWith('#post-')) {
+          return hash.replace('#post-', '');
+        }
+        return null;
+      }
+
+      // Function to highlight a specific post
+      function highlightPost(postId) {
+        const allPosts = document.querySelectorAll('.memory-card');
+        let postFound = false;
+        
+        allPosts.forEach(post => {
+          post.classList.remove('highlighted');
+          if (post.dataset.postId === postId) {
+            post.classList.add('highlighted');
+            post.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            postFound = true;
+          }
+        });
+
+        if (!postFound) {
+          displayPosts(allPostsData);
+        }
+      }
+
+      // Function to display posts
+      function displayPosts(posts, highlightId = null) {
+        postsContainer.innerHTML = '';
+        
+        if (!posts || posts.length === 0) {
+          postsContainer.innerHTML = '<div class="error-message">No memories found</div>';
+          return;
+        }
+
+        // Sort posts by date (newest first)
+        const sortedPosts = [...posts].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        sortedPosts.forEach((post, postIndex) => {
+          const memoryCard = document.createElement('div');
+          memoryCard.className = 'memory-card';
+          memoryCard.dataset.postId = String(post.id);
+          memoryCard.style.animationDelay = `${postIndex * 0.1}s`;
+
+          // Build the post HTML
+          memoryCard.innerHTML = `
+            <div class="card-header">
+              <button class="menu-btn"><i class="fas fa-bars"></i></button>
+              <img src="${post.profilePic}" class="profile-pic" />
+              <div class="user-info">
+                <div class="username">${post.username}</div>
+                <div class="college-name">${post.college}</div>
+              </div>
+            </div>
+
+            <div class="memory-media">
+              <div class="media-controls"></div>
+            </div>
+
+            <div class="card-footer">
+              <div class="memory-description">${post.description}</div>
+              <div class="memory-date"><i class="far fa-calendar-alt"></i> ${post.date}</div>
+              <div class="action-buttons">
+                <button class="action-btn like-btn"><i class="fa-heart far"></i></button>
+                <button class="action-btn share-btn"><i class="fas fa-share-alt"></i> Share</button>
+              </div>
+            </div>
+
+            <div class="menu-overlay">
+              <div class="menu-content">
+                <button class="close-btn"><i class="fas fa-times"></i></button>
+                <div class="menu-header">
+                  <i class="fab fa-instagram" style="color: #e1306c; font-size: 24px;"></i>
+                  <div class="menu-title">Links...</div>
+                </div>
+                <ul class="instagram-links"></ul>
+              </div>
+            </div>
+          `;
+
+          postsContainer.appendChild(memoryCard);
+
+          // Set up media for this post
+          const mediaContainer = memoryCard.querySelector('.memory-media');
+          const mediaControls = memoryCard.querySelector('.media-controls');
+          
+          post.media.forEach((item, index) => {
+            const el = document.createElement(item.type === 'image' ? 'img' : 'video');
+            el.src = item.url;
+            el.className = 'media-item';
+            if (item.type === 'video') el.controls = true;
+            if (index === 0) el.classList.add('active');
+            mediaContainer.insertBefore(el, mediaControls);
+
+            const dot = document.createElement('div');
+            dot.className = 'media-dot';
+            if (index === 0) dot.classList.add('active');
+            dot.dataset.index = index;
+            mediaControls.appendChild(dot);
+          });
+
+          // Set up Instagram links for this post
+          const instagramLinks = memoryCard.querySelector('.instagram-links');
+          post.instagramLinks.forEach(link => {
+            const li = document.createElement('li');
+            li.innerHTML = `<a href="${link.url}" target="_blank"><i class="fab fa-instagram"></i>${link.name}</a>`;
+            instagramLinks.appendChild(li);
+          });
+
+          // Set up event listeners for this post
+          setupPostEventListeners(memoryCard, post.id);
+        });
+
+        if (highlightId) {
+          // Add "Show All" button
+          const showAllBtn = document.createElement('button');
+          showAllBtn.className = 'show-all-btn';
+          showAllBtn.textContent = 'Show All Posts';
+          showAllBtn.addEventListener('click', () => {
+            window.location.hash = '';
+            displayPosts(allPostsData);
+          });
+          postsContainer.appendChild(showAllBtn);
+          
+          // Highlight the requested post
+          highlightPost(highlightId);
+        }
+      }
+
+      function setupPostEventListeners(postElement, postId) {
+        const mediaItems = postElement.querySelectorAll('.media-item');
+        const dots = postElement.querySelectorAll('.media-dot');
+        const likeBtn = postElement.querySelector('.like-btn');
+        const shareBtn = postElement.querySelector('.share-btn');
+        const menuBtn = postElement.querySelector('.menu-btn');
+        const menuOverlay = postElement.querySelector('.menu-overlay');
+        const closeMenu = postElement.querySelector('.close-btn');
+        
+        let currentIndex = 0;
+
+        dots.forEach(dot => {
+          dot.addEventListener('click', () => {
+            const i = parseInt(dot.dataset.index);
+            mediaItems.forEach((item, idx) => {
+              item.classList.toggle('active', idx === i);
+              dots[idx].classList.toggle('active', idx === i);
+            });
+            currentIndex = i;
+          });
+        });
+
+        if (mediaItems.length > 1) {
+          setInterval(() => {
+            const next = (currentIndex + 1) % mediaItems.length;
+            mediaItems[currentIndex].classList.remove('active');
+            dots[currentIndex].classList.remove('active');
+            mediaItems[next].classList.add('active');
+            dots[next].classList.add('active');
+            currentIndex = next;
+          }, 5000);
+        }
+
+        likeBtn.addEventListener('click', () => {
+          const heart = likeBtn.querySelector('.fa-heart');
+          likeBtn.classList.toggle('liked');
+          heart.classList.toggle('fas', likeBtn.classList.contains('liked'));
+          heart.classList.toggle('far', !likeBtn.classList.contains('liked'));
+        });
+
+        shareBtn.addEventListener('click', async () => {
+          shareBtn.classList.add('clicked');
+          setTimeout(() => shareBtn.classList.remove('clicked'), 500);
+          
+          const postUrl = `${window.location.origin}${window.location.pathname}#post-${postId}`;
+          
+          try {
+            await navigator.clipboard.writeText(postUrl);
+            toast.querySelector('span').textContent = 'Post link copied!';
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+          } catch {
+            toast.querySelector('span').textContent = 'Failed to copy link';
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+          }
+        });
+
+        menuBtn.addEventListener('click', () => menuOverlay.classList.add('active'));
+        closeMenu.addEventListener('click', () => menuOverlay.classList.remove('active'));
+        menuOverlay.addEventListener('click', e => {
+          if (e.target === menuOverlay) menuOverlay.classList.remove('active');
+        });
+      }
+
+      // Fetch posts from JSON file
+      fetch('posts.json')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          allPostsData = data.posts;
+          const postId = getPostIdFromURL();
+          
+          if (postId) {
+            // Show all posts but highlight the requested one
+            displayPosts(allPostsData, postId);
+          } else {
+            // Show all posts normally
+            displayPosts(allPostsData);
+          }
+        })
+        .catch(error => {
+          console.error('Error loading posts:', error);
+          postsContainer.innerHTML = '<div class="error-message">Failed to load memories. Please try again later.</div>';
+        });
+
+      // Listen for hash changes
+      window.addEventListener('hashchange', () => {
+        const postId = getPostIdFromURL();
+        if (postId) {
+          highlightPost(postId);
+        } else {
+          displayPosts(allPostsData);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
