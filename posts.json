@@ -1,0 +1,99 @@
+{
+    "posts": [
+      {
+        "id": 1,
+        "username": "College Friends",
+        "college": "ABC University",
+        "profilePic": "https://randomuser.me/api/portraits/men/32.jpg",
+        "description": "Graduation day! After 4 amazing years, we finally made it. So proud of everyone in our batch. The future is bright! 🎓 #GraduationDay #ClassOf2023",
+        "date": "June 5, 2023",
+        "media": [
+          { "type": "image", "url": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" }
+        ],
+        "instagramLinks": [
+          { "name": "Alumni Association", "url": "https://instagram.com/alumniassociation" },
+          { "name": "Career Services", "url": "https://instagram.com/careerservices" }
+          
+
+        ]
+      },
+      {
+        "id": 2,
+        "username": "College Friends",
+        "college": "ABC University",
+        "profilePic": "https://randomuser.me/api/portraits/men/32.jpg",
+        "description": "Our amazing college trip to the mountains! The view was breathtaking and we had so much fun together. Can't wait for our next adventure! #CollegeLife #BestFriends",
+        "date": "May 15, 2023",
+        "media": [
+          { "type": "image", "url": "https://images6.fanpop.com/image/photos/43900000/PIC-random-43965319-666-1000.jpg" },
+          { "type": "image", "url": "https://images.unsplash.com/photo-1547347298-4074fc3086f0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" }
+        ],
+        "instagramLinks": [
+          { "name": "College Official", "url": "https://instagram.com/collegeofficial" },
+          { "name": "Student Council", "url": "https://instagram.com/studentcouncil" }
+        ]
+      },
+      
+      {
+        "id": 3,
+        "username": "College Friends",
+        "college": "ABC University",
+        "profilePic": "https://randomuser.me/api/portraits/men/32.jpg",
+        "description": "Late night study session in the library before finals. Coffee and friends make everything better! #FinalsWeek #StudyBuddies",
+        "date": "April 28, 2023",
+        "media": [
+          { "type": "image", "url": "https://images.unsplash.com/photo-1524179091875-b494986c6e1b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" }
+        ],
+        "instagramLinks": [
+          { "name": "Library", "url": "https://instagram.com/collegelibrary" },
+          { "name": "Study Group", "url": "https://instagram.com/studygrouplink" }
+        ]
+      },
+      {
+        "id": 4,
+        "username": "College Friends",
+        "college": "ABC University",
+        "profilePic": "https://randomuser.me/api/portraits/men/32.jpg",
+        "description": "College fest was lit this year! Our dance team won first prize. So many memories made in these three days. #CollegeFest #Winners",
+        "date": "March 12, 2023",
+        "media": [
+          { "type": "image", "url": "https://images.unsplash.com/photo-1547153760-18fc86324498?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" }
+        ],
+        "instagramLinks": [
+          { "name": "Cultural Committee", "url": "https://instagram.com/culturalcommittee" },
+          { "name": "Dance Club", "url": "https://instagram.com/danceclub" }
+        ]
+      },
+      {
+        "id": 5,
+        "username": "College Friends",
+        "college": "ABC University",
+        "profilePic": "https://randomuser.me/api/portraits/men/32.jpg",
+        "description": "First day of college! Excited to start this new chapter with these amazing people. Here's to new friendships and great memories! #FirstDay #NewBeginnings",
+        "date": "August 1, 2019",
+        "media": [
+          { "type": "image", "url": "https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" }
+        ],
+        "instagramLinks": [
+          { "name": "Freshman Guide", "url": "https://instagram.com/freshmanguide" },
+          { "name": "Orientation Team", "url": "https://instagram.com/orientationteam" }
+        ]
+      },
+      {
+        "id": 6,
+        "username": "College Friends",
+        "college": "ABC University",
+        "profilePic": "https://randomuser.me/api/portraits/men/32.jpg",
+        "description": "Sports day victory! Our department won the overall championship. Teamwork makes the dream work! 🏆 #SportsDay #Champions",
+        "date": "November 20, 2022",
+        "media": [
+          { "type": "image", "url": "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" },
+          { "type": "image", "url": "https://images.unsplash.com/photo-1547347298-4074fc3086f0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" }
+        ],
+        "instagramLinks": [
+          { "name": "Sports Committee", "url": "https://instagram.com/sportscommittee" },
+          { "name": "Athletics Club", "url": "https://instagram.com/athleticsclub" }
+        ]
+      }
+    ]
+  }
